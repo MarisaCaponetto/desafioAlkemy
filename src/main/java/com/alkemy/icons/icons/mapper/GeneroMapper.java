@@ -27,7 +27,7 @@ public class GeneroMapper {
         
         return dto;
     }
-    
+    //Conversion de Lista de Entidades a Lista DTOs
     public List<GeneroDTO> generoEntityList2DTOList(List<GeneroEntity> generoEntities){
         List<GeneroDTO> generoDtos= new ArrayList<>();
         for(GeneroEntity aux : generoEntities){

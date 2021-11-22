@@ -1,6 +1,5 @@
 package com.alkemy.icons.icons.dto;
 
-import com.alkemy.icons.icons.entity.PeliculaSerieEntity;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -15,7 +14,7 @@ public class PersonajeDTO {
     private Integer edad;
     private Double peso;
     private String historia;
-    private List<PeliculaSerieEntity> peliculasSeries = new ArrayList<>(); 
+    private List<PeliculaSerieDTO> peliculasSeries = new ArrayList<>(); 
     
     
 }

@@ -27,12 +27,7 @@ public class GeneroServiceImpl implements GeneroService{
         //Conversion a DTO
         GeneroDTO result = generoMapper.generoEntity2DTO(entitySaved);
         System.out.println("GUARDAR GENERO");
-        return result;
-                
-                
-                
-              
-                
+        return result;     
     }
 
     @Override

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alkemy.icons</groupId>
-	<artifactId>icons</artifactId>
+	<artifactId>Disney</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>icons</name>
+	<name>Disney</name>
 	<description>Desafio alkemy</description>
 	<properties>
 		<java.version>1.8</java.version>
