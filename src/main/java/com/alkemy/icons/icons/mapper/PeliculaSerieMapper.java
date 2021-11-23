@@ -4,10 +4,10 @@ import com.alkemy.icons.icons.dto.PeliculaSerieBasicDTO;
 import com.alkemy.icons.icons.dto.PeliculaSerieDTO;
 import com.alkemy.icons.icons.dto.PersonajeDTO;
 import com.alkemy.icons.icons.entity.PeliculaSerieEntity;
-import com.alkemy.icons.icons.entity.PersonajeEntity;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -49,7 +49,7 @@ public class PeliculaSerieMapper {
         dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setCalificacion(entity.getCalificacion());
         if(loadPersonajes){
-            List<PersonajeDTO> personajesDTO = this.personajeMapper.personajeEntityList2DTOList(entity.getPersonajes(), loadPersonajes = false); //loadPeliculasSeries: false Consultar bucle
+            List<PersonajeDTO> personajesDTO = this.personajeMapper.personajeEntitySet2DTOList(entity.getPersonajes(), loadPersonajes = false); //loadPeliculasSeries: false Consultar bucle
             dto.setPersonajes(personajesDTO);
         }      
         
@@ -84,7 +84,7 @@ public class PeliculaSerieMapper {
      * @param entities
      * 
      */
-    public List<PeliculaSerieDTO> peliculaSerieEntityList2DTOList(Collection<PeliculaSerieEntity> entities, boolean loadPersonajes){
+    public List<PeliculaSerieDTO> peliculaSerieEntitySetList2DTOList(Collection<PeliculaSerieEntity> entities, boolean loadPersonajes){
         List<PeliculaSerieDTO> dtos = new ArrayList<>();
         for(PeliculaSerieEntity aux : entities){
             dtos.add(this.peliculaSerieEntity2DTO(aux, loadPersonajes));

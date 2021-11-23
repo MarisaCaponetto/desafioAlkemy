@@ -2,8 +2,10 @@ package com.alkemy.icons.icons.controller;
 
 import com.alkemy.icons.icons.dto.GeneroDTO;
 import com.alkemy.icons.icons.dto.PeliculaSerieDTO;
+import com.alkemy.icons.icons.entity.GeneroEntity;
 import com.alkemy.icons.icons.service.PeliculaSerieService;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,6 +51,15 @@ public class PeliculaSerieController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    
+    //Busqueda por filtro combinado
+     @GetMapping
+     public ResponseEntity<List<PeliculaSerieDTO>> getDetailsByFilters(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) GeneroEntity genre,
+        @RequestParam(required = false, defaultValue = "ASC") String order
+        ){
+         List<PeliculaSerieDTO> peliculasSeries = this.peliculaSerieService.getByFilters(name, genre, order);
+         return ResponseEntity.ok(peliculasSeries);
+     }
     
 }

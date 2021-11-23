@@ -29,7 +29,7 @@ public class PersonajeEntity {
     
     private String imagen;
     private String nombre;
-    private Integer edad;
+    private String edad;
     private Double peso;
     private String historia;
     
