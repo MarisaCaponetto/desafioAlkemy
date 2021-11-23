@@ -4,12 +4,14 @@ import com.alkemy.icons.icons.dto.PeliculaSerieDTO;
 import com.alkemy.icons.icons.dto.PeliculaSerieFiltersDTO;
 import com.alkemy.icons.icons.entity.GeneroEntity;
 import com.alkemy.icons.icons.entity.PeliculaSerieEntity;
+import com.alkemy.icons.icons.exception.ParamNotFound;
 import com.alkemy.icons.icons.mapper.PeliculaSerieMapper;
 import com.alkemy.icons.icons.repository.PeliculaSerieRepository;
 import com.alkemy.icons.icons.repository.specifications.PeliculaSerieSpecification;
 import com.alkemy.icons.icons.service.PeliculaSerieService;
 import com.alkemy.icons.icons.service.PersonajeService;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,10 +40,7 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService {
         this.personajeService = personajeService;
         this.peliculaSerieMapper = peliculaSerieMapper;
     }
-        
-        
-    
-    
+     
     
     
     public PeliculaSerieDTO save(PeliculaSerieDTO dto){
@@ -77,6 +76,16 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService {
         List<PeliculaSerieDTO> dtos = this.peliculaSerieMapper.peliculaSerieEntitySetList2DTOList(entities, true);
         return dtos;
         
+    }
+
+    @Override
+    public PeliculaSerieDTO getDetailsById(Long id) {
+        Optional<PeliculaSerieEntity> entity = this.peliculaSerieRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id pelicula no valido!");
+        }
+        PeliculaSerieDTO peliculaSerieDTO = this.peliculaSerieMapper.peliculaSerieEntity2DTO(entity.get(), true);
+        return peliculaSerieDTO;
     }
     
 }

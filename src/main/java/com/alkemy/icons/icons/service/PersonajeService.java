@@ -19,4 +19,7 @@ public interface PersonajeService {
     //Busqueda por filtros
     List<PersonajeDTO> getByFilters(String name, String age, Set<Long>movies, String order);
     
+    //Busqueda por id
+    PersonajeDTO getDetailsById(Long id);
+    
 }

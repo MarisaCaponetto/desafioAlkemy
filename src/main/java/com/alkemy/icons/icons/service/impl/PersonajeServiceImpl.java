@@ -3,12 +3,14 @@ package com.alkemy.icons.icons.service.impl;
 import com.alkemy.icons.icons.dto.PersonajeDTO;
 import com.alkemy.icons.icons.dto.PersonajeFiltersDTO;
 import com.alkemy.icons.icons.entity.PersonajeEntity;
+import com.alkemy.icons.icons.exception.ParamNotFound;
 import com.alkemy.icons.icons.mapper.PersonajeMapper;
 import com.alkemy.icons.icons.repository.PersonajeRepository;
 import com.alkemy.icons.icons.repository.specifications.PersonajeSpecification;
 import com.alkemy.icons.icons.service.PeliculaSerieService;
 import com.alkemy.icons.icons.service.PersonajeService;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,6 +68,16 @@ public class PersonajeServiceImpl implements PersonajeService {
         List<PersonajeEntity> entities = this.personajeRepository.findAll(this.personajeSpecification.getByFilters(filtersDTO));
         List<PersonajeDTO> dtos = this.personajeMapper.personajeEntitySet2DTOList(entities, true);//Consultar loadPaises: porque no lo toma sera por v8?
         return dtos;
+    }
+
+    @Override
+    public PersonajeDTO getDetailsById(Long id) {
+        Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id personaje no valido!");
+        }
+        PersonajeDTO personajeDTO = this.personajeMapper.personajeEntity2DTO(entity.get(), true);
+        return personajeDTO;
     }
 
    
