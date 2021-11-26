@@ -41,7 +41,7 @@ public class PersonajeMapper {
         dto.setPeso(entity.getPeso());
         dto.setHistoria(entity.getHistoria());
         if(loadPeliculas){
-            List<PeliculaSerieDTO> peliculasDTO = this.peliculaSerieMapper.peliculaSerieEntitySetList2DTOList(entity.getPeliculasSeries(), loadPeliculas = false);
+            List<PeliculaSerieDTO> peliculasDTO = this.peliculaSerieMapper.peliculaSerieEntitySetList2DTOList(entity.getPeliculasSeries(), false);
             //List<PeliculaSerieDTO> peliculasDTO = this.peliculaSerieMapper.peliculaSerieEntitySet2DTOList(entity.getPeliculasSeries(), loadPeliculas = false); //loadPersonajes: false Consultar bucle
             dto.setPeliculasSeries(peliculasDTO);
        }
@@ -49,9 +49,9 @@ public class PersonajeMapper {
         return dto;
     }
     
-    //ACTUALIZAR???
+    
     public void personajeEntityRefreshValues(PersonajeEntity entity, PersonajeDTO personajeDTO){
-        entity.setImagen(personajeDTO.getNombre());
+        entity.setImagen(personajeDTO.getImagen());
         entity.setNombre(personajeDTO.getNombre());
         entity.setEdad(personajeDTO.getEdad());
         entity.setPeso(personajeDTO.getPeso());

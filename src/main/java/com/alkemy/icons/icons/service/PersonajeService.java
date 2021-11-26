@@ -1,6 +1,7 @@
 package com.alkemy.icons.icons.service;
 
 
+import com.alkemy.icons.icons.dto.PersonajeBasicDTO;
 import com.alkemy.icons.icons.dto.PersonajeDTO;
 import java.util.List;
 import java.util.Set;
@@ -9,17 +10,36 @@ import java.util.Set;
 
 public interface PersonajeService {
     
-    PersonajeDTO save(PersonajeDTO dto);
+    //Busqueda por id
+    PersonajeDTO getDetailsById(Long id);
     
-    List<PersonajeDTO> getAllPersonajes();
-    
-    //Eliminar
-    void delete(Long id); 
+    //Listado personaje 
+    List<PersonajeBasicDTO> getAll();
     
     //Busqueda por filtros
     List<PersonajeDTO> getByFilters(String name, String age, Set<Long>movies, String order);
     
-    //Busqueda por id
-    PersonajeDTO getDetailsById(Long id);
+    //Guardado    
+    PersonajeDTO save(PersonajeDTO dto);
+    
+    //Listado     
+    List<PersonajeDTO> getAllPersonajes();
+    
+    //Actualizar
+    PersonajeDTO update(Long id, PersonajeDTO personaje);
+    
+    //Agregar Pelicula
+    void addPelicula(Long id, Long idPelicula);
+    
+    //Eliminar Pelicula
+    void removePelicula(Long id, Long idPelicula);
+    
+    //Eliminar Personaje
+    void delete(Long id); 
+    
+    
+    
+    
+    
     
 }
