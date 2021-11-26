@@ -1,9 +1,11 @@
 package com.alkemy.icons.icons.service.impl;
 
+import com.alkemy.icons.icons.dto.PeliculaSerieBasicDTO;
 import com.alkemy.icons.icons.dto.PeliculaSerieDTO;
 import com.alkemy.icons.icons.dto.PeliculaSerieFiltersDTO;
 import com.alkemy.icons.icons.entity.GeneroEntity;
 import com.alkemy.icons.icons.entity.PeliculaSerieEntity;
+import com.alkemy.icons.icons.entity.PersonajeEntity;
 import com.alkemy.icons.icons.exception.ParamNotFound;
 import com.alkemy.icons.icons.mapper.PeliculaSerieMapper;
 import com.alkemy.icons.icons.repository.PeliculaSerieRepository;
@@ -41,43 +43,7 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService {
         this.peliculaSerieMapper = peliculaSerieMapper;
     }
      
-    
-    
-    public PeliculaSerieDTO save(PeliculaSerieDTO dto){
-        //Conversion a entity
-        PeliculaSerieEntity entity = peliculaSerieMapper.peliculaSerieDTO2Entity(dto);
-        //Guardado
-        PeliculaSerieEntity entitySaved = peliculaSerieRepository.save(entity);
-        //Conversion a DTO
-        PeliculaSerieDTO result = peliculaSerieMapper.peliculaSerieEntity2DTO(entitySaved, true);
-        //PeliculaSerieDTO result = peliculaSerieMapper.peliculaSerieEntity2DTO(entitySaved);
-        System.out.println("GUARDAR PELICULA O SERIE");
-        return result;
-    }
-
-    @Override
-    public List<PeliculaSerieDTO> getAllPeliculasSeries() {
-        List<PeliculaSerieEntity> peliculaSerieEntities = peliculaSerieRepository.findAll();
-        List<PeliculaSerieDTO> result = peliculaSerieMapper.peliculaSerieEntitySetList2DTOList(peliculaSerieEntities, true);
-        
-        //List<PeliculaSerieDTO> result = peliculaSerieMapper.peliculaSerieEntityList2DTOList(peliculaSerieEntities);
-        return result;
-    }
-
-    @Override
-    public void delete(Long id) {
-        this.peliculaSerieRepository.deleteById(id);
-    }
-
-    @Override
-    public List<PeliculaSerieDTO> getByFilters(String name, GeneroEntity genre, String order) {
-        PeliculaSerieFiltersDTO filtersDTO = new PeliculaSerieFiltersDTO(name, genre, order);
-        List<PeliculaSerieEntity> entities = this.peliculaSerieRepository.findAll(this.peliculaSerieSpecification.getByFilters(filtersDTO));
-        List<PeliculaSerieDTO> dtos = this.peliculaSerieMapper.peliculaSerieEntitySetList2DTOList(entities, true);
-        return dtos;
-        
-    }
-
+    //Busqueda
     @Override
     public PeliculaSerieDTO getDetailsById(Long id) {
         Optional<PeliculaSerieEntity> entity = this.peliculaSerieRepository.findById(id);
@@ -87,5 +53,82 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService {
         PeliculaSerieDTO peliculaSerieDTO = this.peliculaSerieMapper.peliculaSerieEntity2DTO(entity.get(), true);
         return peliculaSerieDTO;
     }
+    
+    //Guardar Pelicula
+    public PeliculaSerieDTO save(PeliculaSerieDTO dto){
+        //Conversion a entity
+        PeliculaSerieEntity entity = peliculaSerieMapper.peliculaSerieDTO2Entity(dto);
+        //Guardado
+        PeliculaSerieEntity entitySaved = peliculaSerieRepository.save(entity);
+        //Conversion a DTO
+        PeliculaSerieDTO result = peliculaSerieMapper.peliculaSerieEntity2DTO(entitySaved, false);
+        //PeliculaSerieDTO result = peliculaSerieMapper.peliculaSerieEntity2DTO(entitySaved);
+        System.out.println("GUARDAR PELICULA O SERIE");
+        return result;
+    }
+    
+    //Actualizacion
+    public PeliculaSerieDTO update(Long id, PeliculaSerieDTO peliculaDTO){
+        Optional<PeliculaSerieEntity> entity = this.peliculaSerieRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("id pelicula no valido!"); 
+        }
+        this.peliculaSerieMapper.peliculaSerieEntityRefreshValues(entity.get(), peliculaDTO);
+        PeliculaSerieEntity entitySaved = this.peliculaSerieRepository.save(entity.get());
+        PeliculaSerieDTO result = this.peliculaSerieMapper.peliculaSerieEntity2DTO(entitySaved, false);
+        return result;
+    }
+    
+    //Listado basic
+    @Override
+    public List<PeliculaSerieBasicDTO> getAll(){
+        List<PeliculaSerieEntity> entities = this.peliculaSerieRepository.findAll();
+        List<PeliculaSerieBasicDTO> peliculaSerieBasicDTO = this.peliculaSerieMapper.peliculaSerieEntitySet2BasicDTOList(entities);
+        return peliculaSerieBasicDTO;
+    }
+
+    @Override
+    public List<PeliculaSerieDTO> getAllPeliculasSeries() {
+        List<PeliculaSerieEntity> peliculaSerieEntities = peliculaSerieRepository.findAll();
+        List<PeliculaSerieDTO> result = peliculaSerieMapper.peliculaSerieEntitySet2DTOList(peliculaSerieEntities, true);
+        
+        //List<PeliculaSerieDTO> result = peliculaSerieMapper.peliculaSerieEntityList2DTOList(peliculaSerieEntities);
+        return result;
+    }
+    
+    //Eliminacion por id
+    @Override
+    public void delete(Long id) {
+        this.peliculaSerieRepository.deleteById(id);
+    }
+    
+    //Busqueda por filtros
+    @Override
+    public List<PeliculaSerieDTO> getByFilters(String name, GeneroEntity genre, String order) {
+        PeliculaSerieFiltersDTO filtersDTO = new PeliculaSerieFiltersDTO(name, genre, order);
+        List<PeliculaSerieEntity> entities = this.peliculaSerieRepository.findAll(this.peliculaSerieSpecification.getByFilters(filtersDTO));
+        List<PeliculaSerieDTO> dtos = this.peliculaSerieMapper.peliculaSerieEntitySet2DTOList(entities, true);
+        return dtos;
+    }
+    
+    //Agregar Pesonaje
+    public void addPersonaje(Long id, Long idPersonaje){
+        PeliculaSerieEntity entity = this.peliculaSerieRepository.getById(id);
+        entity.getPersonajes().size();
+        PersonajeEntity personajeEntity = this.personajeService.getEntityById(idPersonaje);
+        entity.addPersonaje(personajeEntity);
+        this.peliculaSerieRepository.save(entity);
+    }
+    
+    //Eliminar Pelicula
+    public void removePersonaje(Long id, Long idPersonaje){
+        PeliculaSerieEntity entity = this.peliculaSerieRepository.getById(id);
+        entity.getPersonajes().size();
+        PersonajeEntity personajeEntity = this.personajeService.getEntityById(idPersonaje);
+        entity.removePersonaje(personajeEntity);
+        this.peliculaSerieRepository.save(entity);
+    }
+
+    
     
 }

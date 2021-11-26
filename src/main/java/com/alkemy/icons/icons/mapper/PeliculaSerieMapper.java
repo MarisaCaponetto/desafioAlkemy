@@ -49,7 +49,7 @@ public class PeliculaSerieMapper {
         dto.setFechaCreacion(entity.getFechaCreacion().toString());
         dto.setCalificacion(entity.getCalificacion());
         if(loadPersonajes){
-            List<PersonajeDTO> personajesDTO = this.personajeMapper.personajeEntitySet2DTOList(entity.getPersonajes(), loadPersonajes = false); //loadPeliculasSeries: false Consultar bucle
+            List<PersonajeDTO> personajesDTO = this.personajeMapper.personajeEntitySet2DTOList(entity.getPersonajes(), false); //loadPeliculasSeries: false Consultar bucle
             dto.setPersonajes(personajesDTO);
         }      
         
@@ -84,7 +84,7 @@ public class PeliculaSerieMapper {
      * @param entities
      * 
      */
-    public List<PeliculaSerieDTO> peliculaSerieEntitySetList2DTOList(Collection<PeliculaSerieEntity> entities, boolean loadPersonajes){
+    public List<PeliculaSerieDTO> peliculaSerieEntitySet2DTOList(Collection<PeliculaSerieEntity> entities, boolean loadPersonajes){
         List<PeliculaSerieDTO> dtos = new ArrayList<>();
         for(PeliculaSerieEntity aux : entities){
             dtos.add(this.peliculaSerieEntity2DTO(aux, loadPersonajes));

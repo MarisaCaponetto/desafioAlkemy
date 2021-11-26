@@ -46,11 +46,11 @@ public class PersonajeController {
     
   
     
-   // @GetMapping
-  // public ResponseEntity<List<PersonajeDTO>> getAll(){
-      //  List<PersonajeDTO> personajes = personajeService.getAllPersonajes();
-      //  return ResponseEntity.ok().body(personajes);
-   // }
+//  @GetMapping
+//  public ResponseEntity<List<PersonajeDTO>> getAll(){
+//      List<PersonajeDTO> personajes = personajeService.getAllPersonajes();
+//      return ResponseEntity.ok().body(personajes);
+//  }
     
      //Busqueda por filtro combinado
     @GetMapping
