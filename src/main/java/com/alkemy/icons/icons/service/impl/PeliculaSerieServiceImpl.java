@@ -54,6 +54,17 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService {
         return peliculaSerieDTO;
     }
     
+    //Busqueda
+    @Override
+    public PeliculaSerieEntity getEntityById(Long id){
+        Optional<PeliculaSerieEntity> entity = this.peliculaSerieRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id pelicula/serie no valido!");
+        }
+        PeliculaSerieEntity peliculaSerieEntity = this.peliculaSerieRepository.getById(id);
+        return peliculaSerieEntity;
+    }
+    
     //Guardar Pelicula
     public PeliculaSerieDTO save(PeliculaSerieDTO dto){
         //Conversion a entity

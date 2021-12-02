@@ -52,6 +52,18 @@ public class PersonajeServiceImpl implements PersonajeService {
         return personajeDTO;
     }
     
+    //Busqueda
+    @Override 
+    public PersonajeEntity getEntityById(Long id){
+        Optional<PersonajeEntity> entity = this.personajeRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id personaje no valido!");
+        }
+        PersonajeEntity personajeEntity = this.personajeRepository.getById(id);
+        return personajeEntity;
+        
+    }
+    
     //Guardado
     public PersonajeDTO save(PersonajeDTO personajeDTO){
         PersonajeEntity entity = personajeMapper.personajeDTO2Entity(personajeDTO);

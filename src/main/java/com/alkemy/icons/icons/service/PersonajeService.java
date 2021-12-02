@@ -3,6 +3,7 @@ package com.alkemy.icons.icons.service;
 
 import com.alkemy.icons.icons.dto.PersonajeBasicDTO;
 import com.alkemy.icons.icons.dto.PersonajeDTO;
+import com.alkemy.icons.icons.entity.PersonajeEntity;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,9 @@ public interface PersonajeService {
     
     //Busqueda por id
     PersonajeDTO getDetailsById(Long id);
+    
+    //Busqueda por id
+    public PersonajeEntity getEntityById(Long id);
     
     //Listado personaje 
     List<PersonajeBasicDTO> getAll();

@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 public class UserAuthController {
-    
-    
+        
     UserDetailsCustomService userDetailsService; 
        
     AuthenticationManager authenticationManager;    
